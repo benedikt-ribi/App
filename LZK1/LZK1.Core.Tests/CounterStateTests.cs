@@ -22,8 +22,13 @@ public class CounterStateTests : TestsBase
     [Test]
     public void TestDecrement()
     {
-        // TODO Write a test for counterState.Decrement()
+        var provider = CreateProvider();
+        var counterState = provider.GetRequiredService<ICounterState>();
 
-        Assert.Inconclusive("This test is not implemented.");
+        Assert.That(counterState.Count, Is.EqualTo(0));
+
+        counterState.Decrement();
+
+        Assert.That(counterState.Count, Is.EqualTo(-1));
     }
 }

@@ -5,4 +5,6 @@ public interface ICounterState
     public int Count { get; }
 
     void Increment();
+
+    void Decrement();
 }
