@@ -14,13 +14,25 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
-    private async void OnCounterClicked(object? sender, EventArgs e)
+    private async void OnIncrementClicked(object? sender, EventArgs e)
     {
         if (await _counterService.TryIncrement())
         {
-            CounterBtn.Text = _counterService.GetLabel();
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            UpdateLabel();
         }
+    }
+
+    private async void OnDecrementClicked(object? sender, EventArgs e)
+    {
+        if (await _counterService.TryDecrement())
+        {
+            UpdateLabel();
+        }
+    }
+
+    private void UpdateLabel()
+    {
+        CounterLabel.Text = _counterService.GetLabel();
+        SemanticScreenReader.Announce(CounterLabel.Text);
     }
 }
