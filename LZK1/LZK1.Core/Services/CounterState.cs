@@ -10,7 +10,7 @@ internal class CounterState : ICounterState
     }
 
     public void Decrement()
-        {
-            Count -= 1;
-        }
+    {
+        Count -= 1;
+    }
 }

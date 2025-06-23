@@ -7,7 +7,7 @@ public class DialogService : IDialogService
 {
     public async Task<bool> AskAsync(string message)
     {
-        return !await GetMainPage().DisplayAlert("Confirm", message, "Yes", "No");
+        return await GetMainPage().DisplayAlert("Confirm", message, "Yes", "No");
     }
 
     public Task Show(string message)

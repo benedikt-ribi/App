@@ -2,7 +2,8 @@ namespace LZ1.Core.Services;
 
 internal class CounterService : ICounterService
 {
-    private const string ConfirmationMessage = "Are you sure you want to increment?";
+    private const string ConfirmIncrementMessage = "Are you sure you want to increment?";
+    private const string ConfirmDecrementMessage = "Are you sure you want to decrement?";
 
     private readonly ICounterState _state;
     private readonly IDialogService _dialogService;
@@ -21,15 +22,13 @@ internal class CounterService : ICounterService
 
     public void Decrement()
     {
-        // This method is not part of the ICounterService interface but can be added if needed.
-        // Currently, the service only supports incrementing the count.
-        throw new NotImplementedException("This test is not implemented.");
+        _state.Decrement();
     }
 
     /// <inheritdoc/>
     public async Task<bool> TryIncrement()
     {
-        var result = await _dialogService.AskAsync(ConfirmationMessage);
+        var result = await _dialogService.AskAsync(ConfirmIncrementMessage);
 
         if (result)
         {
@@ -41,7 +40,7 @@ internal class CounterService : ICounterService
 
     public async Task<bool> TryDecrement()
     {
-        var result = await _dialogService.AskAsync(ConfirmationMessage);
+        var result = await _dialogService.AskAsync(ConfirmDecrementMessage);
 
         if (result)
         {
@@ -49,7 +48,7 @@ internal class CounterService : ICounterService
         }
 
         return result;
-    }  
+    }
 
     /// <inheritdoc/>
     public string GetLabel()
