@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="MLZ2025.Core.Tests/MLZ2025.Core.Tests.csproj" />
+  <Project Path="MLZ2025.Core\MLZ2025.Core.csproj" Type="Classic C#" />
+  <Project Path="MLZ2025App/MLZ2025App.csproj" />
+</Solution>

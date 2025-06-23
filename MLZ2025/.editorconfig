@@ -1,0 +1,13 @@
+# EditorConfig helps maintain consistent coding styles for multiple developers working on the same project.
+# More information: https://editorconfig.org
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# TODO Figure out why this doesn't work in VSCode
