@@ -63,13 +63,7 @@ public partial class MainPageViewModel : ViewModelBase
     public string PLZ
     {
         get => _plz;
-        set
-        {
-            if (SetField(ref _plz, value))
-            {
-                OnPropertyChanged(nameof(PLZ));
-            }
-        }
+        set => OnPropertyChanged(nameof(PLZ)); // Ensure PLZ is always updated
     }
 
     public bool IsReady => SelectedItem != null;
@@ -137,7 +131,6 @@ public partial class MainPageViewModel : ViewModelBase
                 SelectedItem = Items.First();
 
                 // PLZ-PropertyChanged nach SelectedItem setzen, damit Reihenfolge stimmt
-                OnPropertyChanged(nameof(PLZ));
                 OnPropertyChanged(nameof(IsReady));
             }
             catch (Exception e)
