@@ -67,7 +67,7 @@
                                     <Label Grid.Column="2"
                                            Text="{Binding Age}"
                                            VerticalOptions="End"
-                                           TextColor="#FF8000" /> <!-- Orange für Age -->
+                                           TextColor="Blue" /> <!-- Orange für Age -->
                                     <Label Grid.Column="3"
                                            Text="{Binding PLZ}" />
                                 </Grid>
