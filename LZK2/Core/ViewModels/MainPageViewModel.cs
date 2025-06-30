@@ -63,7 +63,13 @@ public partial class MainPageViewModel : ViewModelBase
     public string PLZ
     {
         get => _plz;
-        set => OnPropertyChanged(nameof(PLZ)); // Ensure PLZ is always updated
+        set
+        {
+            if (SetField(ref _plz, value))
+            {
+                OnPropertyChanged(nameof(PLZ));
+            }
+        }
     }
 
     public bool IsReady => SelectedItem != null;
