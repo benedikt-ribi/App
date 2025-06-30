@@ -1,5 +1,5 @@
-using MLZ2025.Core.Model;
 using MLZ2025.Core.ViewModel;
+using MLZ2025.Shared.Services;
 
 namespace MLZ2025.Core.Services
 {
@@ -14,9 +14,7 @@ namespace MLZ2025.Core.Services
                 .AddTransient<DetailViewModel>()
                 .AddSingleton(Connectivity.Current)
                 .AddSingleton<IDialogService, DialogService>()
-                .AddSingleton<DataAccess<DatabaseAddress>>()
-                .AddSingleton<DataAccessSettings>()
-                .AddTransient<HttpClient>();
+                .AddSharedServices();
         }
     }
 }

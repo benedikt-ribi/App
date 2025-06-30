@@ -1,5 +1,7 @@
 using MLZ2025.Core.Model;
 using MLZ2025.Core.Services;
+using MLZ2025.Shared.Model;
+using MLZ2025.Shared.Services;
 
 namespace MLZ2025.Core.Tests;
 

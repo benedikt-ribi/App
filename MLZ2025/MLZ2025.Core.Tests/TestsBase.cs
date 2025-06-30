@@ -1,4 +1,5 @@
 using MLZ2025.Core.Services;
+using MLZ2025.Shared.Services;
 
 namespace MLZ2025.Core.Tests;
 
@@ -9,6 +10,11 @@ public class TestsBase
 
     protected ServiceProvider CreateServiceProvider()
     {
+        return CreateServiceCollection().BuildServiceProvider();
+    }
+
+    protected IServiceCollection CreateServiceCollection()
+    {
         _testConnectivity.NetworkAccess = NetworkAccess.Internet;
         _testDialogService.LastMessage = string.Empty;
 
@@ -16,8 +22,7 @@ public class TestsBase
             .AddCoreServices()
             .AddSingleton<IDialogService>(_testDialogService)
             .AddSingleton<IConnectivity>(_testConnectivity)
-            .AddSingleton(new DataAccessSettings() { Filename = "test.db" })
-            .BuildServiceProvider();
+            .AddSingleton(new DataAccessSettings() { Filename = "test.db" });
     }
 
     protected class TestDialogService : IDialogService
