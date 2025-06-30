@@ -63,13 +63,7 @@ public partial class MainPageViewModel : ViewModelBase
     public string PLZ
     {
         get => _plz;
-        set
-        {
-            if (SetField(ref _plz, value))
-            {
-                OnPropertyChanged(nameof(PLZ));
-            }
-        }
+        set => SetField(ref _plz, value);
     }
 
     public bool IsReady => SelectedItem != null;
@@ -83,29 +77,12 @@ public partial class MainPageViewModel : ViewModelBase
         {
             if (SetField(ref _selectedItem, value))
             {
-                if (value != null)
-                {
-                    // Nur setzen, wenn sich der Wert unterscheidet, um unnötige PropertyChanged-Events zu vermeiden
-                    if (FirstName != value.FirstName)
-                        FirstName = value.FirstName;
-                    if (LastName != value.LastName)
-                        LastName = value.LastName;
-                    if (Age != value.Age)
-                        Age = value.Age;
-                    if (PLZ != value.PLZ)
-                        PLZ = value.PLZ;
-                }
-                else
-                {
-                    if (FirstName != string.Empty)
-                        FirstName = string.Empty;
-                    if (LastName != string.Empty)
-                        LastName = string.Empty;
-                    if (Age != 0)
-                        Age = 0;
-                    if (PLZ != string.Empty)
-                        PLZ = string.Empty;
-                }
+                FirstName = value?.FirstName ?? string.Empty;
+                LastName = value?.LastName ?? string.Empty;
+                Age = value?.Age ?? 0;
+                PLZ = value?.PLZ ?? string.Empty;
+                // Entferne diese Zeile:
+                // OnPropertyChanged(nameof(SelectedItem));
             }
         }
     }
