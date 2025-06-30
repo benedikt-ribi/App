@@ -1,9 +1,0 @@
-<Solution>
-  <Project Path="MLZ2025.Core.Tests/MLZ2025.Core.Tests.csproj" />
-  <Project Path="MLZ2025.Core\MLZ2025.Core.csproj" Type="Classic C#" />
-  <Project Path="MLZ2025.Shared\MLZ2025.Shared.csproj" Type="Classic C#" />
-  <Project Path="MLZ2025App/MLZ2025App.csproj" />
-  <Project Path="TigerOne.Shared/TigerOne.Shared.csproj" />
-  <Project Path="TigerOne.Web/TigerOne.Web.csproj" />
-  <Project Path="TigerOne/TigerOne.csproj" />
-</Solution>
