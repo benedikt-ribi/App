@@ -1,8 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\MLZ2025"
+    "\\LZK2",
+    "\\LZK2\\Core\\ViewModels",
+    "\\MLZ2025\\data",
+    "\\MLZ2025\\MLZ2025.Core",
+    "\\MLZ2025\\MLZ2025.Core\\Model",
+    "\\MLZ2025\\MLZ2025.Core\\Services",
+    "\\MLZ2025\\MLZ2025.Core\\ViewModel",
+    "\\MLZ2025\\MLZ2025.Core\\Views",
+    "\\MLZ2025\\MLZ2025App"
   ],
-  "SelectedNode": "\\MLZ2025\\.gitignore",
+  "SelectedNode": "\\LZK2\\LZK2.sln",
   "PreviewInSolutionExplorer": false
 }

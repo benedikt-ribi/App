@@ -2,25 +2,30 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 using Core.Models;
 using Core.Services;
+using Core;
 
 namespace Core;
 
 public partial class MainPageViewModel : ViewModelBase
 {
-    private readonly ILocalStorage _localStorage;
+    private readonly ILocalStorage<Person> _localStorage;
+    private readonly IPersonService _personService;
     private string _firstName = string.Empty;
     private string _lastName = string.Empty;
     private int _age;
+    private string _plz = string.Empty;
     private Person? _selectedItem;
 
     public MainPageViewModel()
     {
-        // throw new InvalidOperationException("This constructor is for detecting binding in XAML and should never be called.");
+        //throw new InvalidOperationException("This constructor is for detecting binding in XAML and should never be called.");
     }
 
-    public MainPageViewModel(ILocalStorage localStorage)
+    public MainPageViewModel(ILocalStorage<Person> localStorage, IPersonService personService)
     {
         _localStorage = localStorage ?? throw new ArgumentNullException(nameof(localStorage));
+        _personService = personService ?? throw new ArgumentNullException(nameof(personService));
+        Items = new ObservableCollection<Person>();
     }
 
     public string FirstName
@@ -47,12 +52,24 @@ public partial class MainPageViewModel : ViewModelBase
         }
     }
 
-    public object FullName => $"{LastName}, {FirstName}";
+    public object FullName => $"{LastName} {FirstName}";
 
     public int Age
     {
         get => _age;
         set => SetField(ref _age, value);
+    }
+
+    public string PLZ
+    {
+        get => _plz;
+        set
+        {
+            if (SetField(ref _plz, value))
+            {
+                OnPropertyChanged(nameof(PLZ));
+            }
+        }
     }
 
     public bool IsReady => SelectedItem != null;
@@ -68,15 +85,26 @@ public partial class MainPageViewModel : ViewModelBase
             {
                 if (value != null)
                 {
-                    FirstName = value.FirstName;
-                    LastName = value.LastName;
-                    Age = value.Age;
+                    // Nur setzen, wenn sich der Wert unterscheidet, um unnötige PropertyChanged-Events zu vermeiden
+                    if (FirstName != value.FirstName)
+                        FirstName = value.FirstName;
+                    if (LastName != value.LastName)
+                        LastName = value.LastName;
+                    if (Age != value.Age)
+                        Age = value.Age;
+                    if (PLZ != value.PLZ)
+                        PLZ = value.PLZ;
                 }
                 else
                 {
-                    FirstName = string.Empty;
-                    LastName = string.Empty;
-                    Age = 0;
+                    if (FirstName != string.Empty)
+                        FirstName = string.Empty;
+                    if (LastName != string.Empty)
+                        LastName = string.Empty;
+                    if (Age != 0)
+                        Age = 0;
+                    if (PLZ != string.Empty)
+                        PLZ = string.Empty;
                 }
             }
         }
@@ -94,9 +122,7 @@ public partial class MainPageViewModel : ViewModelBase
         {
             try
             {
-                await _localStorage.Initialize();
-
-                var people = await _localStorage.LoadAll();
+                var people = await _personService.Load();
 
                 if (people.Count == 0)
                 {
@@ -110,6 +136,8 @@ public partial class MainPageViewModel : ViewModelBase
 
                 SelectedItem = Items.First();
 
+                // PLZ-PropertyChanged nach SelectedItem setzen, damit Reihenfolge stimmt
+                OnPropertyChanged(nameof(PLZ));
                 OnPropertyChanged(nameof(IsReady));
             }
             catch (Exception e)
@@ -132,13 +160,21 @@ public partial class MainPageViewModel : ViewModelBase
         model.FirstName = FirstName;
         model.LastName = LastName;
         model.Age = Age;
+        model.PLZ = PLZ;
 
         await _localStorage.Save(model);
+        await _personService.Save(model);
     }
 
     public void Add()
     {
-        var settingsModel = new Person();
+        var settingsModel = new Person
+        {
+            FirstName = FirstName,
+            LastName = LastName,
+            Age = Age,
+            PLZ = PLZ
+        };
 
         Items.Add(settingsModel);
 

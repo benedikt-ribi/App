@@ -1,3 +1,4 @@
+using Core.Models;
 using Core.Services;
 
 namespace Core.Tests;
@@ -71,18 +72,20 @@ public class MainPageViewModelTests : TestsBase
     public async Task TestSave()
     {
         var serviceProvider = CreateServiceProvider();
-        var localStorage = serviceProvider.GetRequiredService<ILocalStorage>();
+        var localStorage = serviceProvider.GetRequiredService<ILocalStorage<Person>>();
 
         await localStorage.Initialize();
         await localStorage.DeleteAll();
 
         var viewModel = await GetMainPageViewModel(serviceProvider);
 
+        viewModel.PLZ = "12345";
         await viewModel.Save();
 
         var settingsModels = await localStorage.LoadAll();
 
         Assert.That(settingsModels, Has.Count.EqualTo(1));
+        Assert.That(settingsModels[0].PLZ, Is.EqualTo("12345"));
     }
 
     [Test]
@@ -90,7 +93,7 @@ public class MainPageViewModelTests : TestsBase
     {
         var serviceProvider = CreateServiceProvider();
         var viewModel = serviceProvider.GetRequiredService<MainPageViewModel>();
-        var localStorage = serviceProvider.GetRequiredService<ILocalStorage>();
+        var localStorage = serviceProvider.GetRequiredService<ILocalStorage<Person>>();
 
         await localStorage.Initialize();
         await localStorage.DeleteAll();
@@ -101,7 +104,7 @@ public class MainPageViewModelTests : TestsBase
 
         await viewModel.EnsureModelLoaded();
 
-        Assert.That(notifications, Is.EquivalentTo(new[] { "SelectedItem", "FirstName", "FullName", "LastName", "FullName", "Age", "IsReady" }));
+        Assert.That(notifications, Is.EquivalentTo(new[] { "SelectedItem", "FirstName", "FullName", "LastName", "FullName", "Age", "PLZ", "IsReady" }));
     }
 
     private async Task<MainPageViewModel> GetMainPageViewModel()

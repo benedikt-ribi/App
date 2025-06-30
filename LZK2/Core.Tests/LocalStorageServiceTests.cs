@@ -109,10 +109,10 @@ public class LocalStorageServiceTests : TestsBase
             .AddSingleton(new LocalStorageSettings { DatabaseFilename = "LZ2Tests.db3" });
     }
 
-    private async Task<ILocalStorage> GetLocalStorage()
+    private async Task<ILocalStorage<Person>> GetLocalStorage()
     {
         var serviceProvider = CreateServiceProvider();
-        var localStorage = serviceProvider.GetRequiredService<ILocalStorage>();
+        var localStorage = serviceProvider.GetRequiredService<ILocalStorage<Person>>();
 
         await localStorage.Initialize();
         return localStorage;

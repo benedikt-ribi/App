@@ -3,7 +3,7 @@ using SQLite;
 
 namespace Core.Services;
 
-public class SqliteLocalStorage : ILocalStorage
+public class SqliteLocalStorage<T> : ILocalStorage<T> where T : class, new()
 {
     private readonly SQLiteAsyncConnection _connection;
 
@@ -15,40 +15,48 @@ public class SqliteLocalStorage : ILocalStorage
 
     public async Task Initialize()
     {
-        // Check whether our table already exists. If not, we're creating it here.
-        if (_connection.TableMappings.All(x =>
-                !x.TableName.Equals(nameof(Person), StringComparison.InvariantCultureIgnoreCase)))
-        {
-            await _connection.CreateTableAsync<Person>();
-        }
+        // Drop and recreate the table to ensure schema matches the model (for development only!)
+        await _connection.DropTableAsync<T>();
+        await _connection.CreateTableAsync<T>();
     }
 
-    public async Task<bool> Delete(Person person)
+    public async Task<bool> Delete(T entity)
     {
-        return await _connection.DeleteAsync<Person>(person.Id) == 1;
+        var pkProp = typeof(T).GetProperty("Id");
+        if (pkProp == null) throw new InvalidOperationException($"Type {typeof(T).Name} does not have an Id property.");
+        var pk = pkProp.GetValue(entity);
+        if (pk == null) return false;
+        return await _connection.DeleteAsync<T>(pk) == 1;
     }
 
-    /// <inheritdoc/>
-    public Task<List<Person>> LoadAll()
+    public Task<List<T>> LoadAll()
     {
-        return _connection.Table<Person>().ToListAsync();
+        return _connection.Table<T>().ToListAsync();
     }
 
-    /// <inheritdoc/>
     public async Task<bool> DeleteAll()
     {
-        return await _connection.DeleteAllAsync<Person>() >= 0;
+        return await _connection.DeleteAllAsync<T>() >= 0;
     }
 
-    /// <inheritdoc/>
-    public async Task<bool> Save(Person person)
+    public async Task<bool> Save(T entity)
     {
-        return await _connection.InsertOrReplaceAsync(person) == 1;
+        // Anpassung: Wenn das Entity eine Eigenschaft "PLZ" hat und diese null ist, auf leeren String setzen
+        var plzProp = typeof(T).GetProperty("PLZ");
+        if (plzProp != null && plzProp.PropertyType == typeof(string))
+        {
+            var plzValue = plzProp.GetValue(entity) as string;
+            if (plzValue == null)
+            {
+                plzProp.SetValue(entity, string.Empty);
+            }
+        }
+
+        return await _connection.InsertOrReplaceAsync(entity) == 1;
     }
 
-    /// <inheritdoc/>
-    public async Task<Person?> TryLoad(int id)
+    public async Task<T?> TryLoad(int id)
     {
-        return await _connection.FindAsync<Person?>(id);
+        return await _connection.FindAsync<T?>(id);
     }
 }
