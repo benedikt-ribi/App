@@ -1,0 +1,91 @@
+﻿@page "/support"
+@using MLZ2025.Shared.Model
+@using MLZ2025.Shared.Services
+@inject DataAccess<DatabaseAddress> DatabaseAddresses
+
+<PageTitle>Support</PageTitle>
+
+<h1>Hello</h1>
+
+<!-- People List -->
+<h2>People List</h2>
+@if (addresses.Any())
+{
+    <ul>
+        @foreach (var person in addresses)
+        {
+            <li>@person.LastName, @person.FirstName (@person.Email, @person.Phone)</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No people added yet.</p>
+}
+
+<h2>Customer Form</h2>
+<EditForm Model="@address" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>First Name:</label>
+        <InputText class="form-control" @bind-Value="address.FirstName" />
+        <ValidationMessage For="@(() => address.FirstName)" />
+    </div>
+    <div class="mb-3">
+        <label>Last Name:</label>
+        <InputText class="form-control" @bind-Value="address.LastName" />
+        <ValidationMessage For="@(() => address.LastName)" />
+    </div>
+    <div class="mb-3">
+        <label>Email:</label>
+        <InputText class="form-control" @bind-Value="address.Email" />
+        <ValidationMessage For="@(() => address.Email)" />
+    </div>
+    <div class="mb-3">
+        <label>Phone:</label>
+        <InputText class="form-control" @bind-Value="address.Phone" />
+        <ValidationMessage For="@(() => address.Phone)" />
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+</EditForm>
+
+@if (submitted)
+{
+    <div class="alert alert-success mt-3">
+        <strong>Submitted Address:</strong><br />
+        Name: @address.FirstName<br />
+        Name: @address.LastName<br />
+        Email: @address.Email<br />
+        Phone: @address.Phone
+    </div>
+}
+
+@code {
+
+    private ViewAddress address = new();
+    private bool submitted = false;
+
+    // List to store people
+    private List<ViewAddress> addresses = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var databaseAddresses = DatabaseAddresses.Table().ToList() ?? new List<DatabaseAddress>();
+
+        addresses = databaseAddresses.Select(ViewAddress.FromDatabaseAddress).ToList();
+    }
+
+    private void HandleValidSubmit()
+    {
+        addresses.Add(address);
+
+        submitted = true;
+
+        DatabaseAddresses.Insert(ViewAddress.ToDatabaseAddress(address));
+
+        // Reset the form
+        address = new ViewAddress();
+    }
+}

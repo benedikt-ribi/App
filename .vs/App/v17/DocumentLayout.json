@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\ribib\\source\\repos\\App\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ribib\\source\\repos\\App\\MLZ2025\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:MLZ2025\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ribib\\source\\repos\\App\\LZK2\\Core.Tests\\MainPageViewModelTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:LZK2\\Core.Tests\\MainPageViewModelTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -22,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,10 +54,6 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
             },
             {
@@ -61,8 +61,25 @@
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\ribib\\source\\repos\\App\\MLZ2025\\.gitignore",
+              "RelativeDocumentMoniker": "MLZ2025\\.gitignore",
+              "ToolTip": "C:\\Users\\ribib\\source\\repos\\App\\MLZ2025\\.gitignore",
+              "RelativeToolTip": "MLZ2025\\.gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-06-30T18:08:44.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "MainPageViewModel.cs",
               "DocumentMoniker": "C:\\Users\\ribib\\source\\repos\\App\\LZK2\\Core\\ViewModels\\MainPageViewModel.cs",
               "RelativeDocumentMoniker": "LZK2\\Core\\ViewModels\\MainPageViewModel.cs",
@@ -70,12 +87,11 @@
               "RelativeToolTip": "LZK2\\Core\\ViewModels\\MainPageViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T11:19:48.391Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-30T11:19:48.391Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ViewModelBase.cs",
               "DocumentMoniker": "C:\\Users\\ribib\\source\\repos\\App\\LZK2\\Core\\ViewModels\\ViewModelBase.cs",
               "RelativeDocumentMoniker": "LZK2\\Core\\ViewModels\\ViewModelBase.cs",
@@ -83,12 +99,11 @@
               "RelativeToolTip": "LZK2\\Core\\ViewModels\\ViewModelBase.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T11:19:46.696Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-30T11:19:46.696Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainPageViewModelTests.cs",
               "DocumentMoniker": "C:\\Users\\ribib\\source\\repos\\App\\LZK2\\Core.Tests\\MainPageViewModelTests.cs",
               "RelativeDocumentMoniker": "LZK2\\Core.Tests\\MainPageViewModelTests.cs",
