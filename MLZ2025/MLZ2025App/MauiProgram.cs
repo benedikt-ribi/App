@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using MLZ2025.Core.Services;
 using MLZ2025.Core.ViewModel;
 

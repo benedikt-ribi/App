@@ -3,12 +3,101 @@
     {
       "firstName": "Maria",
       "lastName": "Müller",
+      "zipCode": "8000",
+      "birthday": "1990-05-12T00:00:00",
+      "email": "maria.mueller@example.com",
+      "phone": "+41 44 123 45 67",
       "id": "1"
     },
     {
-      "firstName": "Johann",
-      "lastName": "Bach",
-      "id": "2"
+      "id": "2795",
+      "FirstName": "Bob",
+      "LastName": "Jones",
+      "ZipCode": "13357",
+      "Birthday": "2025-07-07T00:00:00",
+      "Email": "Bob.Jones@bluewin.ch",
+      "Phone": "079 569 65 89"
+    },
+    {
+      "id": "df6a",
+      "FirstName": "Bob",
+      "LastName": "Jones",
+      "ZipCode": "13357",
+      "Birthday": "2025-07-07T00:00:00",
+      "Email": "Bob.Jones@bluewin.ch",
+      "Phone": "079 569 65 89"
+    },
+    {
+      "id": "e115",
+      "FirstName": "Bob",
+      "LastName": "Jones",
+      "ZipCode": "13357",
+      "Birthday": "2025-07-07T00:00:00",
+      "Email": "Bob.Jones@bluewin.ch",
+      "Phone": "079 569 65 89"
+    },
+    {
+      "id": "7484",
+      "FirstName": "Bob",
+      "LastName": "Jones",
+      "ZipCode": "13357",
+      "Birthday": "2025-07-07T00:00:00",
+      "Email": "Bob.Jones@bluewin.ch",
+      "Phone": "079 569 65 89"
+    },
+    {
+      "id": "521d",
+      "FirstName": "Bob",
+      "LastName": "Jones",
+      "ZipCode": "13357",
+      "Birthday": "2025-07-07T00:00:00",
+      "Email": "Bob.Jones@bluewin.ch",
+      "Phone": "079 569 65 89"
+    },
+    {
+      "id": "52d9",
+      "FirstName": "Bob",
+      "LastName": "Jones",
+      "ZipCode": "13357",
+      "Birthday": "2025-07-07T00:00:00",
+      "Email": "Bob.Jones@bluewin.ch",
+      "Phone": "079 569 65 89"
+    },
+    {
+      "id": "29ca",
+      "FirstName": "Bob",
+      "LastName": "Jones",
+      "ZipCode": "13357",
+      "Birthday": "2025-07-07T00:00:00",
+      "Email": "Bob.Jones@bluewin.ch",
+      "Phone": "079 569 65 89"
+    },
+    {
+      "id": "7ee4",
+      "FirstName": "Bob",
+      "LastName": "Jones",
+      "ZipCode": "13357",
+      "Birthday": "2025-07-07T00:00:00",
+      "Email": "Bob.Jones@bluewin.ch",
+      "Phone": "079 569 65 89"
+    },
+    {
+      "id": "5da8",
+      "FirstName": "Bob",
+      "LastName": "Jones",
+      "ZipCode": "13357",
+      "Birthday": "2025-07-07T00:00:00",
+      "Email": "Bob.Jones@bluewin.ch",
+      "Phone": "079 569 65 89"
+    },
+    {
+      "id": "c8a7",
+      "FirstName": "Bob",
+      "LastName": "Jones",
+      "ZipCode": "13357",
+      "Birthday": "2025-07-07T00:00:00",
+      "Email": "Bob.Jones@bluewin.ch",
+      "Phone": "079 569 65 89"
     }
   ],
   "cars": [

@@ -1,4 +1,4 @@
-﻿using MLZ2025.Core.Model;
+using MLZ2025.Core.Model;
 using MLZ2025.Core.Services;
 using MLZ2025.Core.ViewModel;
 using MLZ2025.Shared.Model;
@@ -177,6 +177,18 @@ public class MainViewModelTests : TestsBase
             }];
 
             return Task.FromResult(result);
+        }
+
+        public Task SaveAddressAsync(ViewAddress address)
+        {
+            // Test-Implementierung: tut nichts
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteAddressAsync(ViewAddress address)
+        {
+            // Test-Implementierung: tut nichts
+            return Task.CompletedTask;
         }
     }
 }

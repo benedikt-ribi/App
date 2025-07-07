@@ -1,5 +1,7 @@
 using MLZ2025.Core.Model;
 using Newtonsoft.Json;
+using MLZ2025.Shared.Model;
+using System.Text;
 
 namespace MLZ2025.Shared.Services;
 
@@ -29,5 +31,21 @@ public class HttpServerAccess : IHttpServerAccess
         }
 
         return result;
+    }
+
+    public async Task SaveAddressAsync(ViewAddress address)
+    {
+        var json = JsonConvert.SerializeObject(address);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _client.PostAsync("/addresses/", content);
+        response.EnsureSuccessStatusCode();
+    }
+
+    public async Task DeleteAddressAsync(ViewAddress address)
+    {
+        // Annahme: Löschen erfolgt über eindeutige Kombination von Feldern (z.B. Name oder Id)
+        // Hier als Beispiel mit FirstName und LastName
+        var response = await _client.DeleteAsync($"/addresses?firstName={Uri.EscapeDataString(address.FirstName)}&lastName={Uri.EscapeDataString(address.LastName)}");
+        response.EnsureSuccessStatusCode();
     }
 }

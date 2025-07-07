@@ -16,6 +16,7 @@ public partial class MainViewModel : ObservableObject
     private readonly IDialogService _dialogService;
     private readonly DataAccess<DatabaseAddress> _dataAccess;
     private readonly DataLoader _dataLoader;
+    private readonly IHttpServerAccess _httpServerAccess; // Hinzugefügt
 
     [ObservableProperty] private ViewAddressCollection _items = new();
     [ObservableProperty] private string _firstName = "Bob";
@@ -26,12 +27,13 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty] private string _email = "Bob.Jones@bluewin.ch";
     [ObservableProperty] private string _phone = "079 569 65 89";
 
-    public MainViewModel(IConnectivity connectivity, IDialogService dialogService, DataAccess<DatabaseAddress> dataAccess, DataLoader dataLoader)
+    public MainViewModel(IConnectivity connectivity, IDialogService dialogService, DataAccess<DatabaseAddress> dataAccess, DataLoader dataLoader, IHttpServerAccess httpServerAccess)
     {
         _connectivity = connectivity;
         _dialogService = dialogService;
         _dataAccess = dataAccess;
         _dataLoader = dataLoader;
+        _httpServerAccess = httpServerAccess; // Hinzugefügt
 
         IsLoading = false;
         // Task.Run(LoadAsync);
@@ -87,15 +89,42 @@ public partial class MainViewModel : ObservableObject
 
         Items.Add(d);
         _dataAccess.Insert(ViewAddress.ToDatabaseAddress(d));
+        await _httpServerAccess.SaveAddressAsync(d); // Speichern per HTTP
     }
 
     [RelayCommand]
     private async Task Delete(ViewAddress item)
     {
+        if (_connectivity.NetworkAccess != NetworkAccess.Internet)
+        {
+            await _dialogService.ShowErrorMessage("No Internet. Please check your internet connection.");
+            return;
+        }
+
+        // Validierung: Pflichtfelder prüfen
+        var context = new ValidationContext(item);
+        var results = new List<ValidationResult>();
+        bool isValid = Validator.TryValidateObject(item, context, results, true);
+
+        if (!isValid)
+        {
+            var errorMessage = string.Join("\n", results.Select(r => r.ErrorMessage));
+            await _dialogService.ShowErrorMessage(errorMessage);
+            return;
+        }
+
         if (!Items.Remove(item))
         {
             Debug.WriteLine($"Cannot remove {item} because it is not in the list.");
+            return;
         }
+
+        // Lokal löschen
+        _dataAccess.Delete(ViewAddress.ToDatabaseAddress(item));
+        await _httpServerAccess.DeleteAddressAsync(item); // Per HTTP löschen
+
+        // Bestätigung anzeigen
+        await _dialogService.ShowErrorMessage("Eintrag gelöscht.");
     }
 
     [RelayCommand]

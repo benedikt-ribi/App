@@ -61,6 +61,11 @@ public class DataAccess<T> : IDisposable
         return _connection.Insert(item);
     }
 
+    public int Delete(T item)
+    {
+        return _connection.Delete(item);
+    }
+
     private static readonly string DatabaseFolder =
         Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MLZ2025");
 
