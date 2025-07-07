@@ -39,7 +39,6 @@
                 Command="{Binding AddCommand}"
                 Grid.Row="0"
                 Grid.Column="2"/>
-
         <!-- Neue Felder für Email und Phone -->
         <Entry Placeholder="Email"
                Grid.Row="2"
@@ -77,24 +76,30 @@
                                 <RoundRectangle CornerRadius="10"/>
                             </Border.StrokeShape>
                             <Grid Padding="0,5"
-                                  ColumnDefinitions=".17*, .17*, .17*, .17*, .16*, .16*">
+                                  ColumnDefinitions="*,*,*,*,*,*">
                                 <Label Text="{Binding FirstName}"
-                                       FontSize="24"/>
+                                       FontSize="18"
+                                       VerticalOptions="Center"/>
                                 <Label Text="{Binding LastName}"
                                        Grid.Column="1"
-                                       FontSize="24"/>
+                                       FontSize="18"
+                                       VerticalOptions="Center"/>
                                 <Label Text="{Binding ZipCode}"
                                        Grid.Column="2"
-                                       FontSize="24"/>
-                                <Label Text="{Binding Birthday}"
+                                       FontSize="18"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding Birthday, StringFormat='{0:yyyy-MM-dd}'}"
                                        Grid.Column="3"
-                                       FontSize="24"/>
+                                       FontSize="18"
+                                       VerticalOptions="Center"/>
                                 <Label Text="{Binding Email}"
                                        Grid.Column="4"
-                                       FontSize="24"/>
+                                       FontSize="18"
+                                       VerticalOptions="Center"/>
                                 <Label Text="{Binding Phone}"
                                        Grid.Column="5"
-                                       FontSize="24"/>
+                                       FontSize="18"
+                                       VerticalOptions="Center"/>
                             </Grid>
                         </Border>
                     </SwipeView>

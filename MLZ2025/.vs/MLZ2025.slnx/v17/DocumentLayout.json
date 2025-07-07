@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\ribib\\source\\repos\\App\\MLZ2025\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3C88CCE2-C54C-2850-875E-3497EB38D90F}|MLZ2025.Core\\MLZ2025.Core.csproj|c:\\users\\ribib\\source\\repos\\app\\mlz2025\\mlz2025.core\\viewmodel\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3C88CCE2-C54C-2850-875E-3497EB38D90F}|MLZ2025.Core\\MLZ2025.Core.csproj|solutionrelative:mlz2025.core\\viewmodel\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3C88CCE2-C54C-2850-875E-3497EB38D90F}|MLZ2025.Core\\MLZ2025.Core.csproj|c:\\users\\ribib\\source\\repos\\app\\mlz2025\\mlz2025.core\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{3C88CCE2-C54C-2850-875E-3497EB38D90F}|MLZ2025.Core\\MLZ2025.Core.csproj|solutionrelative:mlz2025.core\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C88CCE2-C54C-2850-875E-3497EB38D90F}|MLZ2025.Core\\MLZ2025.Core.csproj|c:\\users\\ribib\\source\\repos\\app\\mlz2025\\mlz2025.core\\viewmodel\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3C88CCE2-C54C-2850-875E-3497EB38D90F}|MLZ2025.Core\\MLZ2025.Core.csproj|solutionrelative:mlz2025.core\\viewmodel\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5454244E-716A-33F3-2536-992A1CA8599F}|MLZ2025.Shared\\MLZ2025.Shared.csproj|c:\\users\\ribib\\source\\repos\\app\\mlz2025\\mlz2025.shared\\services\\httpserveraccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -70,7 +70,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Bookmark",
@@ -114,12 +114,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainViewModel.cs",
               "DocumentMoniker": "C:\\Users\\ribib\\source\\repos\\App\\MLZ2025\\MLZ2025.Core\\ViewModel\\MainViewModel.cs",
               "RelativeDocumentMoniker": "MLZ2025.Core\\ViewModel\\MainViewModel.cs",
-              "ToolTip": "C:\\Users\\ribib\\source\\repos\\App\\MLZ2025\\MLZ2025.Core\\ViewModel\\MainViewModel.cs*",
-              "RelativeToolTip": "MLZ2025.Core\\ViewModel\\MainViewModel.cs*",
+              "ToolTip": "C:\\Users\\ribib\\source\\repos\\App\\MLZ2025\\MLZ2025.Core\\ViewModel\\MainViewModel.cs",
+              "RelativeToolTip": "MLZ2025.Core\\ViewModel\\MainViewModel.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAowB8AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-07T10:21:31.48Z",
@@ -166,13 +166,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainPage.xaml",
               "DocumentMoniker": "C:\\Users\\ribib\\source\\repos\\App\\MLZ2025\\MLZ2025.Core\\Views\\MainPage.xaml",
               "RelativeDocumentMoniker": "MLZ2025.Core\\Views\\MainPage.xaml",
-              "ToolTip": "C:\\Users\\ribib\\source\\repos\\App\\MLZ2025\\MLZ2025.Core\\Views\\MainPage.xaml",
-              "RelativeToolTip": "MLZ2025.Core\\Views\\MainPage.xaml",
-              "ViewState": "AgIAACQAAAAAAAAAAAAjwAAAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\ribib\\source\\repos\\App\\MLZ2025\\MLZ2025.Core\\Views\\MainPage.xaml*",
+              "RelativeToolTip": "MLZ2025.Core\\Views\\MainPage.xaml*",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAACsAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-07-07T10:35:42.73Z",
               "EditorCaption": ""
