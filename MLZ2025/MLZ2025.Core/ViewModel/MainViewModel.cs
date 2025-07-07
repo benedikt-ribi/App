@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MLZ2025.Core.Model;
@@ -16,13 +17,14 @@ public partial class MainViewModel : ObservableObject
     private readonly DataAccess<DatabaseAddress> _dataAccess;
     private readonly DataLoader _dataLoader;
 
-    // TODO Use a custom object instead.
-    [ObservableProperty] private ObservableCollection<ViewAddress> _items = [];
-
+    [ObservableProperty] private ViewAddressCollection _items = new();
     [ObservableProperty] private string _firstName = "Bob";
     [ObservableProperty] private string _lastName = "Jones";
     [ObservableProperty] private string _zipCode = "13357";
     [ObservableProperty] private DateOnly _birthday = DateOnly.FromDateTime(DateTime.Today);
+    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] private string _email = "Bob.Jones@bluewin.ch";
+    [ObservableProperty] private string _phone = "079 569 65 89";
 
     public MainViewModel(IConnectivity connectivity, IDialogService dialogService, DataAccess<DatabaseAddress> dataAccess, DataLoader dataLoader)
     {
@@ -31,37 +33,60 @@ public partial class MainViewModel : ObservableObject
         _dataAccess = dataAccess;
         _dataLoader = dataLoader;
 
-        // TODO add a loading property
-
+        IsLoading = false;
         // Task.Run(LoadAsync);
     }
 
     [RelayCommand]
     private async Task Load()
     {
-        var addresses = await _dataLoader.GetDatabaseAddresses();
-
-        Items = new ObservableCollection<ViewAddress>(addresses.Select(ViewAddress.FromDatabaseAddress));
+        IsLoading = true;
+        try
+        {
+            var addresses = await _dataLoader.GetDatabaseAddresses();
+            Items = new ViewAddressCollection();
+            foreach (var addr in addresses.Select(ViewAddress.FromDatabaseAddress))
+                Items.Add(addr);
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     [RelayCommand]
     private async Task Add()
     {
-        // TODO Validate other fields (birthday, ZipCode, etc.)
-
-        if (await ValidateText(FirstName) && await ValidateText(LastName))
+        var d = new ViewAddress
         {
-            var d = new ViewAddress
-            {
-                FirstName = FirstName,
-                LastName = LastName,
-                ZipCode = ZipCode,
-                Birthday = Birthday.ToDateTime(TimeOnly.MinValue)
-            };
+            FirstName = FirstName,
+            LastName = LastName,
+            ZipCode = ZipCode,
+            Birthday = Birthday.ToDateTime(TimeOnly.MinValue),
+            Email = Email,
+            Phone = Phone
+        };
 
-            Items.Add(d);
-            _dataAccess.Insert(ViewAddress.ToDatabaseAddress(d));
+        // DataAnnotations-Validierung
+        var context = new ValidationContext(d);
+        var results = new List<ValidationResult>();
+        bool isValid = Validator.TryValidateObject(d, context, results, true);
+
+        if (!isValid)
+        {
+            var errorMessage = string.Join("\n", results.Select(r => r.ErrorMessage));
+            await _dialogService.ShowErrorMessage(errorMessage);
+            return;
         }
+
+        if (_connectivity.NetworkAccess != NetworkAccess.Internet)
+        {
+            await _dialogService.ShowErrorMessage("No Internet. Please check your internet connection.");
+            return;
+        }
+
+        Items.Add(d);
+        _dataAccess.Insert(ViewAddress.ToDatabaseAddress(d));
     }
 
     [RelayCommand]

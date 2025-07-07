@@ -30,16 +30,17 @@ public class ViewAddress
         };
     }
 
-    [Required]
+    [Required, StringLength(50)]
     public string FirstName { get; set; } = "";
 
-    [Required]
+    [Required, StringLength(50)]
     public string LastName { get; set; } = "";
 
+    [Required, StringLength(10)]
     public string ZipCode { get; set; } = "";
 
-    [Required, DisplayFormat(DataFormatString = "{0:d}")]
-    public DateTime Birthday { get; set; } = DateTime.Today;
+    [Required]
+    public DateTime Birthday { get; set; }
 
     [Required, EmailAddress]
     public string Email { get; set; } = "";

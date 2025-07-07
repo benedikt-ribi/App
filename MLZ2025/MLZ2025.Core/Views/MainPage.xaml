@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -14,7 +14,7 @@
     <!--         Command="{Binding Load}" /> -->
     <!-- </ContentPage.Behaviors> -->
 
-    <Grid RowDefinitions="50, Auto, *"
+    <Grid RowDefinitions="50, Auto, Auto, *"
           ColumnDefinitions=".33*, .33*, .25*"
           Padding="10"
           ColumnSpacing="10"
@@ -40,7 +40,19 @@
                 Grid.Row="0"
                 Grid.Column="2"/>
 
-        <CollectionView Grid.Row="2"
+        <!-- Neue Felder für Email und Phone -->
+        <Entry Placeholder="Email"
+               Grid.Row="2"
+               Grid.Column="0"
+               Text="{Binding Email}" 
+               Keyboard="Email"/>
+        <Entry Placeholder="Phone"
+               Grid.Row="2"
+               Grid.Column="1"
+               Text="{Binding Phone}" 
+               Keyboard="Telephone"/>
+
+        <CollectionView Grid.Row="3"
                         Grid.ColumnSpan="3"
                         ItemsSource="{Binding Items}"
                         SelectionMode="None">
@@ -65,7 +77,7 @@
                                 <RoundRectangle CornerRadius="10"/>
                             </Border.StrokeShape>
                             <Grid Padding="0,5"
-                                  ColumnDefinitions=".25*, .25*, .25*, .25*">
+                                  ColumnDefinitions=".17*, .17*, .17*, .17*, .16*, .16*">
                                 <Label Text="{Binding FirstName}"
                                        FontSize="24"/>
                                 <Label Text="{Binding LastName}"
@@ -76,6 +88,12 @@
                                        FontSize="24"/>
                                 <Label Text="{Binding Birthday}"
                                        Grid.Column="3"
+                                       FontSize="24"/>
+                                <Label Text="{Binding Email}"
+                                       Grid.Column="4"
+                                       FontSize="24"/>
+                                <Label Text="{Binding Phone}"
+                                       Grid.Column="5"
                                        FontSize="24"/>
                             </Grid>
                         </Border>
