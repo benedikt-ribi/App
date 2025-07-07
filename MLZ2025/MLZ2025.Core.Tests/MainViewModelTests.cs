@@ -15,11 +15,11 @@ public class MainViewModelTests : TestsBase
     {
         var serviceProvider = CreateServiceProvider();
         var viewModel = serviceProvider.GetRequiredService<MainViewModel>();
-        viewModel.FirstName = text;
+        viewModel.FirstName = text ?? string.Empty;
 
         viewModel.AddCommand.Execute(null);
 
-        Assert.That(_testDialogService.LastMessage, Is.EqualTo("Please enter a text"));
+        Assert.That(_testDialogService.LastMessage, Is.EqualTo("Please enter a first name"));
     }
 
     [Test]
@@ -30,7 +30,15 @@ public class MainViewModelTests : TestsBase
             .BuildServiceProvider();
         using var dataAccess = serviceProvider.GetRequiredService<DataAccess<DatabaseAddress>>();
 
-        var address = new DatabaseAddress { FirstName = "Bob", LastName = "Last Name" };
+        var address = new DatabaseAddress
+        {
+            FirstName = "Bob",
+            LastName = "Last Name",
+            ZipCode = "12345",
+            Birthday = new DateTime(2000, 1, 1),
+            Email = "bob@example.com",
+            Phone = "0123456789"
+        };
         List<string> expectedItems = [address.FirstName];
 
         dataAccess.DeleteAll();
@@ -38,7 +46,7 @@ public class MainViewModelTests : TestsBase
 
         var viewModel = serviceProvider.GetRequiredService<MainViewModel>();
 
-        Assert.That(viewModel.Items, Is.EquivalentTo(expectedItems));
+        Assert.That(viewModel.Items.Select(i => i.FirstName), Is.EquivalentTo(expectedItems));
     }
 
     [Test]
@@ -49,14 +57,22 @@ public class MainViewModelTests : TestsBase
             .BuildServiceProvider();
         using var dataAccess = serviceProvider.GetRequiredService<DataAccess<DatabaseAddress>>();
 
-        var expectedAddress = new DatabaseAddress { FirstName = "Max", LastName = "Mustermann" };
+        var expectedAddress = new DatabaseAddress
+        {
+            FirstName = "Max",
+            LastName = "Mustermann",
+            ZipCode = "54321",
+            Birthday = new DateTime(1995, 5, 5),
+            Email = "max@example.com",
+            Phone = "9876543210"
+        };
         List<string> expectedItems = [expectedAddress.FirstName];
 
         dataAccess.DeleteAll();
 
         var viewModel = serviceProvider.GetRequiredService<MainViewModel>();
 
-        Assert.That(viewModel.Items, Is.EquivalentTo(expectedItems));
+        Assert.That(viewModel.Items.Select(i => i.FirstName), Is.EquivalentTo(expectedItems));
     }
 
     [Test]
@@ -78,9 +94,9 @@ public class MainViewModelTests : TestsBase
         var serviceProvider = CreateServiceProvider();
         var viewModel = serviceProvider.GetRequiredService<MainViewModel>();
 
-        viewModel.SelectCommand.Execute(text);
+        viewModel.SelectCommand.Execute(text ?? string.Empty);
 
-        Assert.That(_testDialogService.LastMessage, Is.EqualTo("Please enter a text"));
+        Assert.That(_testDialogService.LastMessage, Is.EqualTo("Please enter a first name"));
     }
 
     [TestCaseSource(nameof(EmptyTexts))]
@@ -89,9 +105,9 @@ public class MainViewModelTests : TestsBase
         var serviceProvider = CreateServiceProvider();
         var viewModel = serviceProvider.GetRequiredService<MainViewModel>();
 
-        viewModel.DeleteCommand.Execute(text);
+        viewModel.DeleteCommand.Execute(text ?? string.Empty);
 
-        Assert.That(_testDialogService.LastMessage, Is.EqualTo("Please enter a text"));
+        Assert.That(_testDialogService.LastMessage, Is.EqualTo("Please enter a first name"));
     }
 
     [Test]
@@ -128,11 +144,16 @@ public class MainViewModelTests : TestsBase
         var serviceProvider = CreateServiceProvider();
         var viewModel = serviceProvider.GetRequiredService<MainViewModel>();
         viewModel.FirstName = "Item 1";
+        viewModel.LastName = "Last 1";
+        viewModel.ZipCode = "11111";
+        viewModel.Birthday = DateOnly.FromDateTime(new DateTime(1999, 9, 9));
+        viewModel.Email = "item1@example.com";
+        viewModel.Phone = "1234567890";
 
         viewModel.AddCommand.Execute(null);
 
         Assert.That(_testDialogService.LastMessage, Is.EqualTo(""));
-        Assert.That(viewModel.Items.Last(), Is.EqualTo(null));
+        Assert.That(viewModel.Items.Last().FirstName, Is.EqualTo("Item 1"));
     }
 
     [Test]
@@ -141,11 +162,19 @@ public class MainViewModelTests : TestsBase
         var serviceProvider = CreateServiceProvider();
         var viewModel = serviceProvider.GetRequiredService<MainViewModel>();
 
+        // Add a new item to ensure there is something to delete
+        viewModel.FirstName = "DeleteMe";
+        viewModel.LastName = "ToDelete";
+        viewModel.ZipCode = "99999";
+        viewModel.Birthday = DateOnly.FromDateTime(new DateTime(2001, 1, 1));
+        viewModel.Email = "deleteme@example.com";
+        viewModel.Phone = "0000000000";
+        viewModel.AddCommand.Execute(null);
         var item = viewModel.Items.Last();
 
         viewModel.DeleteCommand.Execute(item);
 
-        Assert.That(_testDialogService.LastMessage, Is.EqualTo(""));
+        Assert.That(_testDialogService.LastMessage, Is.EqualTo("Eintrag gelöscht."));
         Assert.That(viewModel.Items, Does.Not.Contain(item));
     }
 
@@ -157,10 +186,19 @@ public class MainViewModelTests : TestsBase
         var serviceProvider = CreateServiceProvider();
         var viewModel = serviceProvider.GetRequiredService<MainViewModel>();
 
+        // Add a new item to ensure there is something to select
+        viewModel.FirstName = "SelectMe";
+        viewModel.LastName = "ToSelect";
+        viewModel.ZipCode = "88888";
+        viewModel.Birthday = DateOnly.FromDateTime(new DateTime(2002, 2, 2));
+        viewModel.Email = "selectme@example.com";
+        viewModel.Phone = "1111111111";
+        viewModel.AddCommand.Execute(null);
         var item = viewModel.Items.Last();
 
         viewModel.SelectCommand.Execute(item);
 
+        // No error message expected
         Assert.That(_testDialogService.LastMessage, Is.EqualTo(""));
         Assert.That(viewModel.FirstName, Is.EqualTo(item.FirstName));
     }
@@ -173,7 +211,11 @@ public class MainViewModelTests : TestsBase
             {
                 Id = "1",
                 FirstName = "Max",
-                LastName = "Mustermann"
+                LastName = "Mustermann",
+                ZipCode = "54321",
+                Birthday = new DateTime(1995, 5, 5),
+                Email = "max@example.com",
+                Phone = "9876543210"
             }];
 
             return Task.FromResult(result);
